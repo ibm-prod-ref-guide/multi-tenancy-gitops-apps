@@ -6,6 +6,6 @@ spec:
     sc_deployment_hostname_suffix: to-be-set
     sc_deployment_platform: ROKS
 storageclass:
-  gold: managed-nfs-storage
-  silver: managed-nfs-storage
-  bronze: managed-nfs-storage
+  gold: ibmc-file-gold-gid
+  silver: ibmc-file-silver-gid
+  bronze: ibmc-file-bronze-gid
