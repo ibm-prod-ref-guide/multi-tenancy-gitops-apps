@@ -124,7 +124,7 @@ spec:
 
         # Set some variables.
         # TODO: Generalize with token for MQ guide to be replaced by the bootstrap scripts
-        ORG="github.com/ibm-messaging"
+        ORG="github.com/ibm-prod-ref-guide"
         REPO="mq-metric-samples"
         VRMF=9.2.4.0
         db=`echo $COLL | sed "s/mq_//g"`
@@ -174,6 +174,7 @@ spec:
 
         # Get the MQ redistributable client downloaded and installed. Use the genmqpkg command
         # to delete parts we don't need.
+        buildah info
         buildah run $buildCtr mkdir -p /opt/go/src/$ORG/$REPO /opt/bin /opt/config /opt/mqm
         buildah run $buildCtr /bin/bash -c 'cd /opt/mqm \
                         && curl -LO "$RDURL/$VRMF-$RDTAR" \
