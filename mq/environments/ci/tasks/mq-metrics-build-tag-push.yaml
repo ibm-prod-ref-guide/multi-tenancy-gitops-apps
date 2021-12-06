@@ -162,6 +162,7 @@ spec:
 
         # Set up the environment that's going to be needed to download the correct
         # MQ client libraries and to strip out unneeded components from that package.
+        buildah info
         buildah config --env genmqpkg_incnls=1 \
                       --env genmqpkg_incsdk=1 \
                       --env genmqpkg_inctls=1 \
@@ -174,7 +175,7 @@ spec:
 
         # Get the MQ redistributable client downloaded and installed. Use the genmqpkg command
         # to delete parts we don't need.
-        buildah info
+        
         # buildah run $buildCtr mkdir -p /opt/go/src/$ORG/$REPO /opt/bin /opt/config /opt/mqm
         # buildah run $buildCtr /bin/bash -c 'cd /opt/mqm \
         #                 && curl -LO "$RDURL/$VRMF-$RDTAR" \
