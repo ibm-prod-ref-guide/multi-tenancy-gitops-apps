@@ -73,7 +73,6 @@ spec:
         set -x
         cd $(params.source-dir)
         git checkout $(params.git-revision)
-        git rev-list -1 HEAD --abbrev-commit #> /workspace/gitRevList
     - name: build
       image: $(params.BUILDER_IMAGE)
       workingDir: $(params.source-dir)
@@ -197,12 +196,13 @@ spec:
         
         # Git command is not available in this builder imaage. GitCommit taken from previous step.
         # gitCommit=`git rev-list -1 HEAD --abbrev-commit 2>/dev/null`
-        # if [ -z "$gitCommit" ]
-        # then
-        #   gitCommit="Unknown"
-        # fi
-        # gitCommit=`cat /workspace/gitRevList`
-        # echo "$gitCommit"
+        gitCommit=`echo "$(params.git-revision)" | cut -c1-6`
+        if [ -z "$gitCommit" ]
+        then
+          gitCommit="Unknown"
+        fi
+        
+        echo "$gitCommit"
         hw=`uname -i`
         os=`uname -s`
         bp="$os/$hw"
