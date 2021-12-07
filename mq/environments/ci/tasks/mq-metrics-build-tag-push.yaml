@@ -185,7 +185,10 @@ spec:
         # Copy over the source tree
         buildah config --workingdir /opt/go/src/$ORG/$REPO $buildCtr
         ls `pwd`
-        buildah copy  -q $buildCtr `pwd`/..
+        # Updated this command from the original file as it is trying to copy the whole file system and fails
+        # pwd in the pipeline is /source/ 
+        # buildah copy  -q $buildCtr `pwd`/..
+        buildah copy  -q $buildCtr `pwd`/
 
         # The build process for the collector allows setting of some
         # external variables, useful for debug and logging. Set them here...
