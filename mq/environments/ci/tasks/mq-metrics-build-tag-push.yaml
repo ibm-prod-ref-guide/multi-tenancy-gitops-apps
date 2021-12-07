@@ -184,6 +184,7 @@ spec:
 
         # Copy over the source tree
         buildah config --workingdir /opt/go/src/$ORG/$REPO $buildCtr
+        ls `pwd`/..
         buildah copy  -q $buildCtr `pwd`/..
 
         # The build process for the collector allows setting of some
