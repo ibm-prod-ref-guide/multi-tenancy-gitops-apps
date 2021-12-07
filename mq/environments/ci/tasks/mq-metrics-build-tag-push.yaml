@@ -73,7 +73,7 @@ spec:
         set -x
         cd $(params.source-dir)
         git checkout $(params.git-revision)
-        git rev-list -1 HEAD --abbrev-commit > /workspace/gitRevList`
+        git rev-list -1 HEAD --abbrev-commit > /workspace/gitRevList
     - name: build
       image: $(params.BUILDER_IMAGE)
       workingDir: $(params.source-dir)
