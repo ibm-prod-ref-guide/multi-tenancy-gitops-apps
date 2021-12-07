@@ -151,7 +151,7 @@ spec:
         # cache previous steps automatically.
         ###########################################################################
         buildCtr=$(buildah from registry.access.redhat.com/ubi8/ubi)
-        buildah info
+        
         # Install the Go package and a couple of other things. Failures here are going to be fatal
         # so we check that we were at least able to get started
         buildah run $buildCtr yum --disableplugin=subscription-manager -y install wget curl tar golang
@@ -160,17 +160,17 @@ spec:
         exit 1
         fi
 
-        # # Set up the environment that's going to be needed to download the correct
-        # # MQ client libraries and to strip out unneeded components from that package.
-        # buildah config --env genmqpkg_incnls=1 \
-        #               --env genmqpkg_incsdk=1 \
-        #               --env genmqpkg_inctls=1 \
-        #               --env RDURL="https://public.dhe.ibm.com/ibmdl/export/pub/software/websphere/messaging/mqdev/redist" \
-        #               --env RDTAR="IBM-MQC-Redist-LinuxX64.tar.gz" \
-        #               --env VRMF="$VRMF" \
-        #               --env ORG="$ORG" \
-        #               --env REPO="$REPO" \
-        #                 $buildCtr
+        # Set up the environment that's going to be needed to download the correct
+        # MQ client libraries and to strip out unneeded components from that package.
+        buildah config --env genmqpkg_incnls=1 \
+                      --env genmqpkg_incsdk=1 \
+                      --env genmqpkg_inctls=1 \
+                      --env RDURL="https://public.dhe.ibm.com/ibmdl/export/pub/software/websphere/messaging/mqdev/redist" \
+                      --env RDTAR="IBM-MQC-Redist-LinuxX64.tar.gz" \
+                      --env VRMF="$VRMF" \
+                      --env ORG="$ORG" \
+                      --env REPO="$REPO" \
+                        $buildCtr
 
         # Get the MQ redistributable client downloaded and installed. Use the genmqpkg command
         # to delete parts we don't need.
