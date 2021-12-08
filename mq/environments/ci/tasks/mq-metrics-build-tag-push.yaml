@@ -201,35 +201,33 @@ spec:
         then
           gitCommit="Unknown"
         fi
-        
-        echo "$gitCommit"
         hw=`uname -i`
         os=`uname -s`
         bp="$os/$hw"
 
-        # # ... and use them as part of compiling the program. We actually do this
-        # # by creating a script and copying it into the container where it gets run.
-        # # That helps with wildcard expansion as it refers to the container rather than
-        # # the local tree.
-        # tmpfile=/tmp/build.sh.$$
-        # cat << EOF > $tmpfile
-        # cat config.common.yaml cmd/$COLL/config.collector.yaml > /opt/config/$COLL.yaml
-        # go build -mod=vendor -o /opt/bin/$COLL \
-        #   -ldflags "-X \"main.BuildStamp=$buildStamp\" -X \"main.BuildPlatform=$bp\" -X \"main.GitCommit=$gitCommit\"" \
-        #   cmd/$COLL/*.go
-        # EOF
+        # ... and use them as part of compiling the program. We actually do this
+        # by creating a script and copying it into the container where it gets run.
+        # That helps with wildcard expansion as it refers to the container rather than
+        # the local tree.
+        tmpfile=/tmp/build.sh.$$
+        cat << EOF > $tmpfile
+        cat config.common.yaml cmd/$COLL/config.collector.yaml > /opt/config/$COLL.yaml
+        go build -mod=vendor -o /opt/bin/$COLL \
+          -ldflags "-X \"main.BuildStamp=$buildStamp\" -X \"main.BuildPlatform=$bp\" -X \"main.GitCommit=$gitCommit\"" \
+          cmd/$COLL/*.go
+        EOF
 
-        # # Copy in the build command and remove it from the local machine. Then run it.
-        # echo "Copying source"
-        # buildah copy -q $buildCtr $tmpfile build.sh
-        # rm -f $tmpfile
-        # echo "Compiling program $COLL"
-        # buildah run  $buildCtr /bin/bash ./build.sh
-        # echo "Compilation finished"
+        # Copy in the build command and remove it from the local machine. Then run it.
+        echo "Copying source"
+        buildah copy -q $buildCtr $tmpfile build.sh
+        rm -f $tmpfile
+        echo "Compiling program $COLL"
+        buildah run  $buildCtr /bin/bash ./build.sh
+        echo "Compilation finished"
 
-        # # We now have a container image with the compiled code. Complete its generation with a 'commit'
-        # echo "Comitting builder image"
-        # buildah commit -q --squash --rm $buildCtr $imgNameBuild
+        # We now have a container image with the compiled code. Complete its generation with a 'commit'
+        echo "Comitting builder image"
+        buildah commit -q --squash --rm $buildCtr $imgNameBuild
 
         # ###########################################################################
         # # Restart the image creation from a smaller base image
