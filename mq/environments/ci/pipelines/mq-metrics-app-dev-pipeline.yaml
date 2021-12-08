@@ -124,16 +124,16 @@ spec:
           value: "$(tasks.setup.results.source-dir)"
         - name: js-image
           value: "$(tasks.setup.results.js-image)"
-    # - name: img-release
-    #   taskRef:
-    #     name: ibm-img-release-v2-6-13
-    #   runAfter:
-    #     - tag-release
-    #   params:
-    #     - name: image-from
-    #       value: "$(tasks.setup.results.image-url)"
-    #     - name: image-to
-    #       value: "$(tasks.setup.results.image-release):$(tasks.tag-release.results.tag)"
+    - name: img-release
+      taskRef:
+        name: ibm-img-release-v2-6-13
+      runAfter:
+        - tag-release
+      params:
+        - name: image-from
+          value: "$(tasks.setup.results.image-url)"
+        - name: image-to
+          value: "$(tasks.setup.results.image-release):$(tasks.tag-release.results.tag)"
     # - name: img-scan
     #   taskRef:
     #     name: ibm-img-scan-v2-6-13
