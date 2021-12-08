@@ -271,11 +271,16 @@ spec:
         # #     -p 9158:9157 \
         # #     $imgNameRuntime
 
-        # set +x
-        # if [[ -n "${REGISTRY_USER}" ]] && [[ -n "${REGISTRY_PASSWORD}" ]] && [[ "$(params.image-server)" != "image-registry.openshift-image-registry.svc:5000"  ]]; then
-        #   buildah login -u "${REGISTRY_USER}" -p "${REGISTRY_PASSWORD}" "$(params.image-server)"
-        #   echo "buildah login -u "${REGISTRY_USER}" -p "xxxxx" "$(params.image-server)""
-        # fi
-        # set -x
-        # # buildah --storage-driver=$(params.STORAGE_DRIVER) push --tls-verify=$(params.TLSVERIFY) --digestfile ./image-digest ${APP_IMAGE} docker://${APP_IMAGE}
+        set +x
+        if [[ -n "${REGISTRY_USER}" ]] && [[ -n "${REGISTRY_PASSWORD}" ]] && [[ "$(params.image-server)" != "image-registry.openshift-image-registry.svc:5000"  ]]; then
+          buildah login -u "${REGISTRY_USER}" -p "${REGISTRY_PASSWORD}" "$(params.image-server)"
+          echo "buildah login -u "${REGISTRY_USER}" -p "xxxxx" "$(params.image-server)""
+        fi
+        set -x
+        echo $(params.STORAGE_DRIVER)
+        echo $(params.TLSVERIFY)
+        echo ${APP_IMAGE}
+        echo $imgNameRuntime
+        
+        # buildah --storage-driver=$(params.STORAGE_DRIVER) push --tls-verify=$(params.TLSVERIFY) --digestfile ./image-digest ${APP_IMAGE} docker://${APP_IMAGE}
 
