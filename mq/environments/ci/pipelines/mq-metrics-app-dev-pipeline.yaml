@@ -110,20 +110,20 @@ spec:
     #       value: "$(tasks.setup.results.health-curl)"
     #     - name: security
     #       value: "$(params.security)"
-    # - name: tag-release
-    #   taskRef:
-    #     name: ibm-tag-release-v2-6-13
-    #   runAfter:
-    #     - smoke-tests
-    #   params:
-    #     - name: git-url
-    #       value: "$(tasks.setup.results.git-url)"
-    #     - name: git-revision
-    #       value: "$(tasks.setup.results.git-revision)"
-    #     - name: source-dir
-    #       value: "$(tasks.setup.results.source-dir)"
-    #     - name: js-image
-    #       value: "$(tasks.setup.results.js-image)"
+    - name: tag-release
+      taskRef:
+        name: ibm-tag-release-v2-6-13
+      runAfter:
+        - build
+      params:
+        - name: git-url
+          value: "$(tasks.setup.results.git-url)"
+        - name: git-revision
+          value: "$(tasks.setup.results.git-revision)"
+        - name: source-dir
+          value: "$(tasks.setup.results.source-dir)"
+        - name: js-image
+          value: "$(tasks.setup.results.js-image)"
     # - name: img-release
     #   taskRef:
     #     name: ibm-img-release-v2-6-13
