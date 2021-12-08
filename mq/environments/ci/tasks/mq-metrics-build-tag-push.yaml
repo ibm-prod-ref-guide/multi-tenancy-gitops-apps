@@ -107,15 +107,13 @@ spec:
       securityContext:
         privileged: true
       script: |
-        # APP_IMAGE="$(params.image-server)/$(params.image-namespace)/$(params.image-repository):$(params.image-tag)"
-        # if [[ -n "${IBM_ENTITLED_REGISTRY_USER}" ]] && [[ -n "${IBM_ENTITLED_REGISTRY_PASSWORD}" ]]; then
-        #   buildah login -u ${IBM_ENTITLED_REGISTRY_USER} -p ${IBM_ENTITLED_REGISTRY_PASSWORD} cp.icr.io
-        #   echo "buildah login -u "${IBM_ENTITLED_REGISTRY_USER}" -p "xxxxx" cp.icr.io"
-        # fi
-        # buildah --layers --storage-driver=$(params.STORAGE_DRIVER) bud --format=$(params.FORMAT) --tls-verify=$(params.TLSVERIFY) -f $(params.DOCKERFILE) -t ${APP_IMAGE} $(params.CONTEXT)
-        
+        APP_IMAGE="$(params.image-server)/$(params.image-namespace)/$(params.image-repository):$(params.image-tag)"
+        if [[ -n "${IBM_ENTITLED_REGISTRY_USER}" ]] && [[ -n "${IBM_ENTITLED_REGISTRY_PASSWORD}" ]]; then
+          buildah login -u ${IBM_ENTITLED_REGISTRY_USER} -p ${IBM_ENTITLED_REGISTRY_PASSWORD} cp.icr.io
+          echo "buildah login -u "${IBM_ENTITLED_REGISTRY_USER}" -p "xxxxx" cp.icr.io"
+        fi
 
-
+        ########## START
         # This script is based in the buildah.sh script that can be found in the 
         # mq-metrics-samples GitHub repository (https://github.com/ibm-messaging/mq-metric-samples)
 
@@ -270,6 +268,7 @@ spec:
         # #     -e IBMMQ_CONNECTION_CHANNEL=SYSTEM.DEF.SVRCONN \
         # #     -p 9158:9157 \
         # #     $imgNameRuntime
+        ########## END
 
         set +x
         if [[ -n "${REGISTRY_USER}" ]] && [[ -n "${REGISTRY_PASSWORD}" ]] && [[ "$(params.image-server)" != "image-registry.openshift-image-registry.svc:5000"  ]]; then
@@ -281,6 +280,6 @@ spec:
         echo $(params.TLSVERIFY)
         echo ${APP_IMAGE}
         echo $imgNameRuntime
-        
-        # buildah --storage-driver=$(params.STORAGE_DRIVER) push --tls-verify=$(params.TLSVERIFY) --digestfile ./image-digest ${APP_IMAGE} docker://${APP_IMAGE}
+        buildah images
+        buildah --storage-driver=$(params.STORAGE_DRIVER) push --tls-verify=$(params.TLSVERIFY) --digestfile ./image-digest $imgNameRuntime docker://$imgNameRuntime
 
