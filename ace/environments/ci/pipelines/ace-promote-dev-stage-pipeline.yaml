@@ -103,7 +103,7 @@ spec:
     - name: destination-env
       value: $(params.destination-env)
     - name: git-pr
-      value: "false"
+      value: "true"
     runAfter:
     - functional-test
     taskRef:
