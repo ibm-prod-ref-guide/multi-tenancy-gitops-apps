@@ -5,9 +5,9 @@ metadata:
 data:
   branch: ocp47-2021-2
   host: github.com
-  org: cloud-native-toolkit-demos
-  owner: cloud-native-toolkit-demos
+  org: ibm-prod-ref-guide
+  owner: ibm-prod-ref-guide
   parentdir: .
   protocol: https
   repo: multi-tenancy-gitops-apps
-  url: https://github.com/cloud-native-toolkit-demos/multi-tenancy-gitops-apps.git
+  url: https://github.com/ibm-prod-ref-guide/multi-tenancy-gitops-apps.git
