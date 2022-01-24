@@ -3,7 +3,7 @@ kind: ConfigMap
 metadata:
   name: gitops-repo-ace
 data:
-  branch: ocp47-2021-2
+  branch: master
   host: github.com
   org: ibm-prod-ref-guide
   owner: ibm-prod-ref-guide
