@@ -25,7 +25,7 @@ resources:
 - tasks/8-image-release.yaml
 - tasks/9-helm-release.yaml
 - tasks/9-img-scan.yaml
-- tasks/10-gitops.yaml
+# - tasks/10-gitops.yaml
 - tasks/11-update-image.yaml
 - tasks/12-argo-tests.yaml
 - tasks/gitops-ace.yaml
