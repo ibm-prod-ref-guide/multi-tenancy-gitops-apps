@@ -1,9 +1,8 @@
 apiVersion: tekton.dev/v1beta1
 kind: Pipeline
 metadata:
-  name: mq-metrics-samples-dev
+  name: mq-metric-samples-dev
   annotations:
-    # app.openshift.io/runtime: openjdk
     app.openshift.io/builder: buildah
 spec:
   params:
@@ -184,5 +183,5 @@ spec:
           value: "$(params.app-path)"
         - name: dest-environment
           value: "$(params.environment)"
-        - name: git-pr
-          value: "$(params.git-pr)"
+        # - name: git-pr
+        #   value: "$(params.git-pr)"
