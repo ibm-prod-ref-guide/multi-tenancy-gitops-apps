@@ -1,0 +1,3 @@
+global: {}
+mq-metric-samples:
+  replicaCount: 1
