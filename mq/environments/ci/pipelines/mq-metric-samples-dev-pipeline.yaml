@@ -1,7 +1,7 @@
 apiVersion: tekton.dev/v1beta1
 kind: Pipeline
 metadata:
-  name: mq-metrics-amples-dev
+  name: mq-metrics-samples-dev
   annotations:
     # app.openshift.io/runtime: openjdk
     app.openshift.io/builder: buildah
