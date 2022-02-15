@@ -166,23 +166,23 @@ spec:
           value: "$(tasks.setup.results.deploy-ingress-type)"
         - name: tools-image
           value: "$(tasks.setup.results.tools-image)"
-    # - name: gitops
-    #   taskRef:
-    #     name: ibm-gitops
-    #   runAfter:
-    #     - helm-release
-    #   params:
-    #     - name: app-name
-    #       value: "$(tasks.setup.results.app-name)"
-    #     - name: version
-    #       value: "$(tasks.tag-release.results.tag)"
-    #     - name: helm-url
-    #       value: $(tasks.helm-release.results.helm-url)
-    #     - name: tools-image
-    #       value: "$(tasks.setup.results.tools-image)"
-    #     - name: app-path
-    #       value: "$(params.app-path)"
-    #     - name: dest-environment
-    #       value: "$(params.environment)"
-    #     - name: git-pr
-    #       value: "$(params.git-pr)"
+    - name: gitops
+      taskRef:
+        name: ibm-gitops
+      runAfter:
+        - helm-release
+      params:
+        - name: app-name
+          value: "$(tasks.setup.results.app-name)"
+        - name: version
+          value: "$(tasks.tag-release.results.tag)"
+        - name: helm-url
+          value: $(tasks.helm-release.results.helm-url)
+        - name: tools-image
+          value: "$(tasks.setup.results.tools-image)"
+        - name: app-path
+          value: "$(params.app-path)"
+        - name: dest-environment
+          value: "$(params.environment)"
+        - name: git-pr
+          value: "$(params.git-pr)"
