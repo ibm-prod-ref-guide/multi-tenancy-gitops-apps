@@ -1,4 +1,4 @@
 dependencies:
   - name: mq-metric-samples
-    version: v5.2.29
+    version: v5.2.30
     repository: http://artifactory-artifactory.tools:8082/artifactory/generic-local/ci
